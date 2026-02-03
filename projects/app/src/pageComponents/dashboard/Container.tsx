@@ -219,13 +219,14 @@ const DashboardContainer = ({
       <Box
         position={'sticky'}
         top={0}
-        bg={'white'}
+        bg={'#F5F7FA'}
+        backdropFilter={'blur(10px)'}
         borderBottom={'1px solid'}
-        borderColor={'myGray.200'}
+        borderColor={'#EDEFF2'}
         zIndex={100}
         px={4}
         py={3}
-        boxShadow={'sm'}
+        boxShadow={'0 2px 8px rgba(0, 0, 0, 0.1)'}
       >
         <Flex gap={6} alignItems={'flex-start'} overflowX={'auto'} pb={1}>
           {groupList.map((group) => {
@@ -242,9 +243,15 @@ const DashboardContainer = ({
                   fontSize={'sm'}
                   fontWeight={'medium'}
                   color={selected ? 'primary.600' : 'myGray.700'}
-                  bg={selected ? 'primary.50' : 'transparent'}
+                  bg={selected ? 'rgba(76, 175, 80, 0.1)' : 'transparent'}
+                  backdropFilter={selected ? 'blur(5px)' : 'none'}
+                  border={selected ? '1px solid' : 'none'}
+                  borderColor={selected ? 'rgba(76, 175, 80, 0.3)' : 'transparent'}
+                  boxShadow={selected ? '0 2px 4px rgba(76, 175, 80, 0.15)' : 'none'}
                   _hover={{
-                    bg: selected ? 'primary.50' : 'myGray.50'
+                    bg: selected ? 'rgba(76, 175, 80, 0.15)' : 'rgba(76, 175, 80, 0.05)',
+                    backdropFilter: 'blur(5px)',
+                    boxShadow: '0 2px 4px rgba(76, 175, 80, 0.1)'
                   }}
                   onClick={() => {
                     router.push(`/dashboard/${group.groupId}`);
@@ -271,10 +278,16 @@ const DashboardContainer = ({
                           cursor={'pointer'}
                           fontSize={'xs'}
                           fontWeight={500}
-                          color={isActive ? 'primary.600' : 'myGray.500'}
-                          bg={isActive ? 'primary.50' : 'transparent'}
+                          color={isActive ? 'primary.600' : 'myGray.600'}
+                          bg={isActive ? 'rgba(76, 175, 80, 0.1)' : 'transparent'}
+                          backdropFilter={isActive ? 'blur(5px)' : 'none'}
+                          border={isActive ? '1px solid' : 'none'}
+                          borderColor={isActive ? 'rgba(76, 175, 80, 0.3)' : 'transparent'}
+                          boxShadow={isActive ? '0 1px 3px rgba(76, 175, 80, 0.15)' : 'none'}
                           _hover={{
-                            bg: isActive ? 'primary.50' : 'myGray.50'
+                            bg: isActive ? 'rgba(76, 175, 80, 0.15)' : 'rgba(76, 175, 80, 0.05)',
+                            backdropFilter: 'blur(5px)',
+                            boxShadow: '0 1px 3px rgba(76, 175, 80, 0.1)'
                           }}
                           onClick={() => {
                             if (child.onClick) {

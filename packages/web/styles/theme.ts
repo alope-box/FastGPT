@@ -26,7 +26,7 @@ const { definePartsStyle: tablePart, defineMultiStyleConfig: tableMultiStyle } =
 const { definePartsStyle: radioParts, defineMultiStyleConfig: radioStyle } =
   createMultiStyleConfigHelpers(radioAnatomy.keys);
 
-export const shadowLight = '0px 0px 0px 2.4px rgba(51, 112, 255, 0.15)';
+export const shadowLight = '0px 0px 0px 2.4px rgba(76, 175, 80, 0.15)';
 
 // 按键
 const Button = defineStyleConfig({
@@ -302,6 +302,22 @@ const Button = defineStyleConfig({
       },
       _disabled: {
         bg: 'red.200 !important'
+      }
+    },
+    glassmorphism: {
+      bg: 'rgba(255, 255, 255, 0.1)',
+      backdropFilter: 'blur(10px)',
+      border: '1px solid',
+      borderColor: 'rgba(255, 255, 255, 0.2)',
+      color: 'myGray.700',
+      boxShadow: '0 8px 32px rgba(76, 175, 80, 0.1)',
+      _hover: {
+        bg: 'rgba(76, 175, 80, 0.1)',
+        borderColor: 'rgba(76, 175, 80, 0.3)',
+        color: 'primary.700'
+      },
+      _active: {
+        bg: 'rgba(76, 175, 80, 0.15)'
       }
     }
   },
@@ -584,6 +600,15 @@ const Checkbox = checkBoxMultiStyle({
 });
 
 const Modal = modalMultiStyle({
+  baseStyle: modalPart({
+    dialog: {
+      bg: 'rgba(255, 255, 255, 0.95)',
+      backdropFilter: 'blur(20px)',
+      border: '1px solid',
+      borderColor: 'rgba(255, 255, 255, 0.2)',
+      boxShadow: '0 25px 50px rgba(76, 175, 80, 0.15)'
+    }
+  }),
   sizes: {
     md: modalPart({
       body: {
@@ -743,23 +768,23 @@ export const theme = extendTheme({
       900: '#111824'
     },
     primary: {
-      1: 'rgba(51, 112, 255, 0.1)',
-      '015': 'rgba(51, 112, 255, 0.15)',
-      3: 'rgba(51, 112, 255, 0.3)',
-      5: 'rgba(51, 112, 255, 0.5)',
-      7: 'rgba(51, 112, 255, 0.7)',
-      9: 'rgba(51, 112, 255, 0.9)',
+      1: 'rgba(46, 139, 87, 0.1)',
+      '015': 'rgba(46, 139, 87, 0.15)',
+      3: 'rgba(46, 139, 87, 0.3)',
+      5: 'rgba(46, 139, 87, 0.5)',
+      7: 'rgba(46, 139, 87, 0.7)',
+      9: 'rgba(46, 139, 87, 0.9)',
 
-      50: '#F0F4FF',
-      100: '#E1EAFF',
-      200: '#C5D7FF',
-      300: '#94B5FF',
-      400: '#5E8FFF',
-      500: '#487FFF',
-      600: '#3370FF',
-      700: '#2B5FD9',
-      800: '#2450B5',
-      900: '#1D4091'
+      50: '#E8F5E8',
+      100: '#C8E6C9',
+      200: '#A5D6A7',
+      300: '#81C784',
+      400: '#66BB6A',
+      500: '#4CAF50',
+      600: '#43A047',
+      700: '#388E3C',
+      800: '#2E7D32',
+      900: '#1B5E20'
     },
     blue: {
       1: 'rgba(51, 112, 255, 0.1)',

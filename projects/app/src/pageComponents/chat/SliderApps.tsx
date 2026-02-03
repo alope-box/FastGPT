@@ -179,7 +179,7 @@ const LogoSection = () => {
           w="135px"
           h="33px"
           loading="eager"
-          alt="FastGPT slogan"
+          alt="Alope slogan"
           src={wideLogoSrc || DEFAULT_LOGO_BANNER_URL}
           fallbackSrc={DEFAULT_LOGO_BANNER_URL}
         />

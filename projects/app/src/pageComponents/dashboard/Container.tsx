@@ -1,4 +1,4 @@
-import { Box, Flex, useDisclosure } from '@chakra-ui/react';
+import { Box, Flex } from '@chakra-ui/react';
 import { useSystem } from '@fastgpt/web/hooks/useSystem';
 import { useTranslation } from 'next-i18next';
 import { useMemo } from 'react';
@@ -40,7 +40,6 @@ const DashboardContainer = ({
   const { t } = useTranslation();
   const { isPc } = useSystem();
   const { feConfigs } = useSystemStore();
-  const { isOpen: isOpenSidebar, onOpen: onOpenSidebar, onClose: onCloseSidebar } = useDisclosure();
 
   // First tab
   const currentTab = useMemo(() => {
@@ -173,18 +172,7 @@ const DashboardContainer = ({
               typeId: tag.typeId,
               typeName: t(tag.typeName as any),
               isActive: index === 0 && !currentType
-            })),
-          ...(feConfigs?.appTemplateCourse
-            ? [
-                {
-                  typeId: AppTemplateTypeEnum.contribute,
-                  typeName: t('common:contribute_app_template'),
-                  onClick: () => {
-                    window.open(feConfigs.appTemplateCourse);
-                  }
-                }
-              ]
-            : [])
+            }))
         ]
       },
       {
@@ -217,104 +205,77 @@ const DashboardContainer = ({
   const MenuIcon = useMemo(
     () => (
       <Flex alignItems={'center'}>
-        {isOpenSidebar && (
-          <Box
-            position="fixed"
-            top={0}
-            left={0}
-            right={0}
-            bottom={0}
-            bg="blackAlpha.600"
-            onClick={onCloseSidebar}
-            zIndex={99}
-          />
-        )}
-        <MyIcon name="menu" w={'1.25rem'} mr={1.5} onClick={onOpenSidebar} />
+        <MyIcon name="menu" w={'1.25rem'} />
       </Flex>
     ),
-    [isOpenSidebar, onCloseSidebar, onOpenSidebar]
+    []
   );
 
   const isLoading = isLoadingTemplatesTags || isLoadingTemplates || isLoadingToolGroups;
 
   return (
     <Box h={'100%'}>
-      {/* Side bar */}
-      {(isPc || isOpenSidebar) && (
-        <MyBox
-          isLoading={isLoading}
-          position={'fixed'}
-          left={isPc ? navbarWidth : 0}
-          top={0}
-          bg={'myGray.25'}
-          w={`220px`}
-          h={'full'}
-          borderLeft={'1px solid'}
-          borderRight={'1px solid'}
-          borderColor={'myGray.200'}
-          pt={4}
-          px={2.5}
-          pb={2.5}
-          zIndex={100}
-          userSelect={'none'}
-        >
+      {/* Top navigation bar */}
+      <Box
+        position={'sticky'}
+        top={0}
+        bg={'white'}
+        borderBottom={'1px solid'}
+        borderColor={'myGray.200'}
+        zIndex={100}
+        px={4}
+        py={3}
+        boxShadow={'sm'}
+      >
+        <Flex gap={6} alignItems={'flex-start'} overflowX={'auto'} pb={1}>
           {groupList.map((group) => {
             const selected = currentTab === group.groupId;
 
             return (
-              <Box key={group.groupId}>
+              <Box key={group.groupId} minW={'fit-content'}>
                 <Flex
-                  p={2}
-                  fontSize={'sm'}
+                  alignItems={'center'}
+                  px={3}
+                  py={2}
                   rounded={'md'}
-                  color={'myGray.700'}
                   cursor={'pointer'}
+                  fontSize={'sm'}
+                  fontWeight={'medium'}
+                  color={selected ? 'primary.600' : 'myGray.700'}
+                  bg={selected ? 'primary.50' : 'transparent'}
                   _hover={{
-                    bg: 'primary.50'
+                    bg: selected ? 'primary.50' : 'myGray.50'
                   }}
-                  mb={0.5}
                   onClick={() => {
                     router.push(`/dashboard/${group.groupId}`);
-                    onCloseSidebar();
                   }}
-                  {...(group.children.length === 0 &&
-                    selected && { bg: 'primary.100', color: 'primary.600' })}
+                  minW={'fit-content'}
+                  whiteSpace={'nowrap'}
                 >
-                  <Avatar src={group.groupAvatar} w={'1rem'} mr={1.5} />
-                  <Box fontWeight={'medium'}>{group.groupName}</Box>
-                  <Box flex={1} />
-                  {group.children.length > 0 && (
-                    <MyIcon
-                      name={selected ? 'core/chat/chevronDown' : 'core/chat/chevronUp'}
-                      w={'1rem'}
-                    />
-                  )}
+                  <Avatar src={group.groupAvatar} w={'1rem'} mr={2} />
+                  <Box>{group.groupName}</Box>
                 </Flex>
-                {selected && (
-                  <Box>
+
+                {/* Sub items for selected group */}
+                {selected && group.children.length > 0 && (
+                  <Flex mt={2} gap={3} ml={6} flexWrap={'wrap'}>
                     {group.children.map((child) => {
                       const isActive = child.isActive || child.typeId === currentType;
 
                       return (
-                        <Flex
+                        <Box
                           key={child.typeId}
-                          fontSize={'sm'}
-                          fontWeight={500}
+                          px={2}
+                          py={1}
                           rounded={'md'}
-                          py={2}
-                          pl={'30px'}
                           cursor={'pointer'}
-                          mb={0.5}
-                          _hover={{ bg: 'primary.50' }}
-                          {...(isActive
-                            ? {
-                                bg: 'primary.50',
-                                color: 'primary.600'
-                              }
-                            : {
-                                bg: 'transparent',
-                                color: 'myGray.500'
-                              })}
+                          fontSize={'xs'}
+                          fontWeight={500}
+                          color={isActive ? 'primary.600' : 'myGray.500'}
+                          bg={isActive ? 'primary.50' : 'transparent'}
+                          _hover={{
+                            bg: isActive ? 'primary.50' : 'myGray.50'
+                          }}
                           onClick={() => {
                             if (child.onClick) {
                               child.onClick();
@@ -325,23 +286,25 @@ const DashboardContainer = ({
                                   type: child.typeId
                                 }
                               });
-                              onCloseSidebar();
                             }
                           }}
+                          minW={'fit-content'}
+                          whiteSpace={'nowrap'}
                         >
                           {child.typeName}
-                        </Flex>
+                        </Box>
                       );
                     })}
-                  </Box>
+                  </Flex>
                 )}
               </Box>
             );
           })}
-        </MyBox>
-      )}
+        </Flex>
+      </Box>
 
-      <Box h={'100%'} pl={isPc ? `220px` : 0} position={'relative'}>
+      {/* Main content area */}
+      <Box h={'calc(100% - 80px)'} overflow={'auto'} position={'relative'}>
         {children({
           templateTags,
           templateList,

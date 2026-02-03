@@ -19,13 +19,15 @@ export enum NavbarTypeEnum {
 
 const itemStyles: BoxProps & LinkProps = {
   my: 2,
+  mx: 2,
   display: 'flex',
-  flexDirection: 'column',
+  flexDirection: 'row',
   alignItems: 'center',
-  justifyContent: 'center',
+  justifyContent: 'flex-start',
   cursor: 'pointer',
-  w: '48px',
-  h: '58px',
+  w: '96px',
+  h: '48px',
+  px: 2,
   borderRadius: 'md'
 };
 const hoverStyle: LinkProps = {
@@ -165,15 +167,20 @@ const Navbar = ({ unread }: { unread: number }) => {
                       name: item.icon as any,
                       color: 'myGray.400'
                     })}
-                width={'20px'}
-                height={'20px'}
+                width={'18px'}
+                height={'18px'}
+                mr={2}
               />
               <Box
-                fontSize={'12px'}
-                transform={'scale(0.9)'}
-                mt={'5px'}
+                fontSize={'13px'}
+                fontWeight={isActive ? '600' : '500'}
                 lineHeight={1}
-                color={isActive ? 'primary.700' : 'myGray.500'}
+                color={isActive ? 'primary.700' : 'myGray.600'}
+                whiteSpace={'nowrap'}
+                overflow={'hidden'}
+                textOverflow={'ellipsis'}
+                flex={1}
+                minW={0}
               >
                 {item.label}
               </Box>
@@ -192,10 +199,10 @@ const Navbar = ({ unread }: { unread: number }) => {
             href={`/account/inform`}
             mb={0}
             color={'myGray.500'}
-            height={'48px'}
+            justifyContent={'center'}
           >
             <Badge count={unread}>
-              <MyIcon name={'support/user/informLight'} width={'22px'} height={'22px'} />
+              <MyIcon name={'support/user/informLight'} width={'20px'} height={'20px'} />
             </Badge>
           </Link>
         </Box>

@@ -160,6 +160,8 @@ const FormLayout = ({ children, setPageType, pageType }: Props) => {
   return (
     <Flex flexDirection={'column'} h={'100%'}>
       <Flex alignItems={'center'} justifyContent={['space-between', 'center']}>
+        {/* Logo container commented out as requested */}
+        {/*
         <Flex alignItems={'center'} pr="4">
           <Flex
             w={['42px', '56px']}
@@ -177,6 +179,7 @@ const FormLayout = ({ children, setPageType, pageType }: Props) => {
             {feConfigs?.systemTitle}
           </Box>
         </Flex>
+        */}
         {!isPc && <I18nLngSelector />}
       </Flex>
       {children}

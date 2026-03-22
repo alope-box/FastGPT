@@ -1,6 +1,6 @@
 import React, { type Dispatch } from 'react';
 import { FormControl, Flex, Input, Button, Box } from '@chakra-ui/react';
-import { LOGO_ICON } from '@fastgpt/global/common/system/constants';
+import { getLogoIconUrl } from '@/pageComponents/chat/constants';
 import { getWebReqUrl } from '@fastgpt/web/common/system/utils';
 import MyImage from '@fastgpt/web/components/common/Image/MyImage';
 import { useForm } from 'react-hook-form';
@@ -141,7 +141,11 @@ const LoginForm = ({ setPageType, loginSuccess }: Props) => {
             alignItems={'center'}
             justifyContent={'center'}
           >
-            <MyImage src={getWebReqUrl(LOGO_ICON)} w={['22.5px', '36px']} alt={'icon'} />
+            <MyImage
+              src={getWebReqUrl(getLogoIconUrl(feConfigs?.brand))}
+              w={['22.5px', '36px']}
+              alt={'icon'}
+            />
           </Flex>
         </Flex>
 

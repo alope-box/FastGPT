@@ -38,3 +38,7 @@ export const getLogoBannerCollapsedUrl = (brand?: string) => {
     ? `${BASE_URL}/imgs/chat/htlc_banner_fold.png`
     : `${BASE_URL}/imgs/chat/hw_alope_banner_fold.png`;
 };
+export const getLogoIconUrl = (brand?: string) => {
+  const _brand = brand || process.env.NEXT_PUBLIC_BRAND || 'hw';
+  return _brand === 'htlc' ? `/icon/htlc-logo.svg` : `/icon/hw-logo.png`;
+};

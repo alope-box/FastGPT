@@ -23,7 +23,7 @@ interface RegisterType {
   password2: string;
 }
 
-const RegisterForm = ({ setPageType, loginSuccess }: Props) => {
+const ForgetPasswordForm = ({ setPageType, loginSuccess }: Props) => {
   const { toast } = useToast();
   const { t } = useTranslation();
   const { feConfigs } = useSystemStore();
@@ -192,4 +192,4 @@ const RegisterForm = ({ setPageType, loginSuccess }: Props) => {
   );
 };
 
-export default RegisterForm;
+export default ForgetPasswordForm;

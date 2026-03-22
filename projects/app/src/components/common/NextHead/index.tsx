@@ -1,15 +1,21 @@
 import { LOGO_ICON } from '@fastgpt/global/common/system/constants';
+import { useSystemStore } from '@/web/common/system/useSystemStore';
+import { getLogoIconUrl } from '@/pageComponents/chat/constants';
 import Head from 'next/head';
 import React, { useMemo } from 'react';
 
 const NextHead = ({ title, icon, desc }: { title?: string; icon?: string; desc?: string }) => {
+  const { feConfigs } = useSystemStore();
+
   const formatIcon = useMemo(() => {
-    if (!icon) return LOGO_ICON;
+    const fallbackIcon = getLogoIconUrl(feConfigs?.brand) || LOGO_ICON;
+
+    if (!icon || icon === '/') return fallbackIcon;
     if (icon.startsWith('http') || icon.startsWith('/')) {
       return icon;
     }
-    return LOGO_ICON;
-  }, [icon]);
+    return fallbackIcon;
+  }, [icon, feConfigs?.brand]);
 
   return (
     <Head>
@@ -20,7 +26,7 @@ const NextHead = ({ title, icon, desc }: { title?: string; icon?: string; desc?:
       />
       <meta httpEquiv="Content-Security-Policy" content="img-src * data: blob:;" />
       {desc && <meta name="description" content={desc} />}
-      {icon && <link rel="icon" href={formatIcon} />}
+      <link rel="icon" href={formatIcon} />
     </Head>
   );
 };

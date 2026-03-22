@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Flex, Text } from '@chakra-ui/react';
+import { Box, Flex, Text, Image } from '@chakra-ui/react';
 import { keyframes } from '@emotion/react';
 import { LoginContainer } from '@/pageComponents/login';
 import I18nLngSelector from '@/components/Select/I18nLngSelector';
@@ -28,6 +28,8 @@ const particleFloat = keyframes`
 // Alope Logo Component
 const AlopeLogo = () => {
   const { feConfigs } = useSystemStore();
+
+
   return (
     <Box position="relative" mb={8} textAlign="center">
     {/* Animated background particles */}

@@ -55,7 +55,7 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
         <NextHead
           title={title}
           desc={process.env.SYSTEM_DESCRIPTION || t('common:system_intro', { title })}
-          icon={getWebReqUrl(process.env.SYSTEM_FAVICON || LOGO_ICON)}
+          icon={process.env.SYSTEM_FAVICON ? getWebReqUrl(process.env.SYSTEM_FAVICON) : undefined}
         />
       )}
 

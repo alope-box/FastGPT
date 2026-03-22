@@ -117,7 +117,7 @@ const defaultFeConfigs: FastGPTFeConfigsType = {
     websiteSyncLimitMinuted: 0
   },
   scripts: [],
-  favicon: '/favicon.ico',
+  favicon: '/icon/htlc-logo.svg',
   uploadFileMaxSize: 500,
   chineseRedirectUrl: process.env.CHINESE_IP_REDIRECT_URL || ''
 };

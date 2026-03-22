@@ -24,21 +24,20 @@ export enum ChatSettingTabOptionEnum {
 }
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || '';
-const _brand = process.env.NEXT_PUBLIC_BRAND || 'hw';
 export const getLogoBannerUrl = (brand?: string) => {
-  const _brand = brand || process.env.NEXT_PUBLIC_BRAND || 'hw';
+  const _brand = brand || process.env.NEXT_PUBLIC_BRAND || 'htlc';
   return _brand === 'htlc'
     ? `${BASE_URL}/imgs/chat/htlc_banner.png`
     : `${BASE_URL}/imgs/chat/hw_alope_banner.png`;
 };
 
 export const getLogoBannerCollapsedUrl = (brand?: string) => {
-  const _brand = brand || process.env.NEXT_PUBLIC_BRAND || 'hw';
+  const _brand = brand || process.env.NEXT_PUBLIC_BRAND || 'htlc';
   return _brand === 'htlc'
     ? `${BASE_URL}/imgs/chat/htlc_banner_fold.png`
     : `${BASE_URL}/imgs/chat/hw_alope_banner_fold.png`;
 };
 export const getLogoIconUrl = (brand?: string) => {
-  const _brand = brand || process.env.NEXT_PUBLIC_BRAND || 'hw';
+  const _brand = brand || process.env.NEXT_PUBLIC_BRAND || 'htlc';
   return _brand === 'htlc' ? `/icon/htlc-logo.svg` : `/icon/hw-logo.png`;
 };

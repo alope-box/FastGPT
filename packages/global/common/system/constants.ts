@@ -1,5 +1,5 @@
 export const HUMAN_ICON = `/icon/human.svg`;
-const _brand = process.env.NEXT_PUBLIC_BRAND || 'hw';
+const _brand = process.env.NEXT_PUBLIC_BRAND || 'htlc';
 export const LOGO_ICON = _brand === 'htlc' ? `/icon/htlc-logo.svg` : `/icon/hw-logo.png`;
 export const HUGGING_FACE_ICON = `/imgs/model/huggingface.svg`;
 

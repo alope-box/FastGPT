@@ -195,7 +195,7 @@ const ListItem = () => {
                     router.push(`/app/detail?appId=${app._id}`);
                   } else {
                     window.open(
-                      `/chat?appId=${app._id}&pane=${ChatSidebarPaneEnum.RECENTLY_USED_APPS}`,
+                      `${process.env.NEXT_PUBLIC_BASE_URL || ''}/chat?appId=${app._id}&pane=${ChatSidebarPaneEnum.RECENTLY_USED_APPS}`,
                       '_blank'
                     );
                   }
@@ -276,7 +276,7 @@ const ListItem = () => {
                                         label: t('app:go_to_chat'),
                                         onClick: () => {
                                           window.open(
-                                            `/chat?appId=${app._id}&pane=${ChatSidebarPaneEnum.RECENTLY_USED_APPS}`,
+                                            `${process.env.NEXT_PUBLIC_BASE_URL || ''}/chat?appId=${app._id}&pane=${ChatSidebarPaneEnum.RECENTLY_USED_APPS}`,
                                             '_blank'
                                           );
                                         }
@@ -295,7 +295,7 @@ const ListItem = () => {
                                         label: t('app:go_to_run'),
                                         onClick: () => {
                                           window.open(
-                                            `/chat?appId=${app._id}&pane=${ChatSidebarPaneEnum.RECENTLY_USED_APPS}`,
+                                            `${process.env.NEXT_PUBLIC_BASE_URL || ''}/chat?appId=${app._id}&pane=${ChatSidebarPaneEnum.RECENTLY_USED_APPS}`,
                                             '_blank'
                                           );
                                         }

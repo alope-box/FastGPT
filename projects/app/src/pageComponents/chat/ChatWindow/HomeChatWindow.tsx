@@ -370,7 +370,7 @@ const HomeChatWindow = ({ myApps }: Props) => {
   return (
     <Flex h={'100%'} flexDirection={['column', 'row']}>
       {/* set window title and icon */}
-      <NextHead title={chatSettings?.homeTabTitle || 'Alope'} icon="/icon/logo.svg" />
+      <NextHead title={chatSettings?.homeTabTitle || 'Alope'} icon="/icon/hw-logo.png" />
 
       {/* show history slider */}
       {isPc || !appId ? (

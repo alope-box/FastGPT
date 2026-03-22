@@ -5,6 +5,7 @@ import { useChatStore } from '@/web/core/chat/context/useChatStore';
 import PageContainer from '@/components/PageContainer';
 import SliderApps from '@/pageComponents/chat/SliderApps';
 import { serviceSideProps } from '@/web/common/i18n/utils';
+import { getWebReqUrl } from '@fastgpt/web/common/system/utils';
 import { ChatSidebarPaneEnum } from '@/pageComponents/chat/constants';
 import { GetChatTypeEnum } from '@/global/core/chat/constants';
 import ChatContextProvider from '@/web/core/chat/context/chatContext';
@@ -105,7 +106,7 @@ const Render = (props: { appId: string; isStandalone?: string }) => {
   if (!isInitedUser) {
     return (
       <PageContainer isLoading flex={'1'} p={4}>
-        <NextHead title={feConfigs?.systemTitle}></NextHead>
+        <NextHead title={feConfigs?.systemTitle} icon={getWebReqUrl('/icon/hw-logo.png')}></NextHead>
       </PageContainer>
     );
   }
@@ -114,7 +115,7 @@ const Render = (props: { appId: string; isStandalone?: string }) => {
   if (!userInfo) {
     return (
       <>
-        <NextHead title={feConfigs?.systemTitle}></NextHead>
+        <NextHead title={feConfigs?.systemTitle} icon={getWebReqUrl('/icon/hw-logo.png')}></NextHead>
 
         <LoginModal />
       </>
@@ -132,6 +133,7 @@ const Render = (props: { appId: string; isStandalone?: string }) => {
           showNodeStatus
         >
           <ChatRecordContextProvider params={chatRecordProviderParams}>
+            <NextHead title={feConfigs?.systemTitle} icon={getWebReqUrl('/icon/hw-logo.png')} />
             <Chat myApps={myApps} />
           </ChatRecordContextProvider>
         </ChatItemContextProvider>

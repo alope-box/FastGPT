@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 import { Box, Flex, Text } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
+import { useRouter } from 'next/router';
 import { useUserStore } from '@/web/support/user/useUserStore';
 import { clearToken } from '@/web/support/user/auth';
 import { useConfirm } from '@fastgpt/web/hooks/useConfirm';
@@ -21,6 +22,7 @@ const UserAvatarPopover = ({
   ...props
 }: UserAvatarPopoverProps) => {
   const { t } = useTranslation();
+  const router = useRouter();
   const { setUserInfo, userInfo } = useUserStore();
 
   const { openConfirm, ConfirmModal } = useConfirm({ content: t('common:confirm_logout') });
@@ -62,6 +64,21 @@ const UserAvatarPopover = ({
                   <Box>{userInfo?.username ?? '-'}</Box>
                 </Flex>
               )}
+
+              <Flex
+                alignItems="center"
+                cursor="pointer"
+                _hover={{ bg: 'myGray.100' }}
+                py={1}
+                px={2}
+                borderRadius="4px"
+                gap={1}
+                onClick={() => { onClose(); router.push('/dashboard/apps'); }}
+                w="100%"
+              >
+                <MyIcon name="common/setting" w="16px" h="16px" />
+                <Text fontSize="14px">{t('common:console', '工作台')}</Text>
+              </Flex>
 
               <Flex
                 alignItems="center"

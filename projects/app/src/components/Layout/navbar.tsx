@@ -149,7 +149,7 @@ const Navbar = ({ unread }: { unread: number }) => {
                 ? {
                     onClick: () => {
                       if (item.link.startsWith('/chat')) {
-                        window.open(item.link, '_blank', 'noopener,noreferrer');
+                        window.open(`${process.env.NEXT_PUBLIC_BASE_URL || ''}${item.link}`, '_blank', 'noopener,noreferrer');
                         return;
                       }
                       router.push(item.link);

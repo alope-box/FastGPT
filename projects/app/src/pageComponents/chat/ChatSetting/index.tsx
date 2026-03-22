@@ -45,7 +45,7 @@ const ChatSetting = () => {
 
   return (
     <>
-      <NextHead title={chatSettings?.homeTabTitle || 'Alope'} icon="/icon/logo.svg" />
+      <NextHead title={chatSettings?.homeTabTitle || 'Alope'} icon="/icon/hw-logo.png" />
 
       {!isPc && (
         <Flex h="46px" w="100vw" position="absolute" borderBottom="sm" color="myGray.900">

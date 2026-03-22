@@ -2,6 +2,7 @@ export enum ChatSidebarPaneEnum {
   SETTING = 's',
   TEAM_APPS = 'ta',
   RECENTLY_USED_APPS = 'ra',
+  CONSOLE = 'c',
 
   // these two features are only available in the commercial version
   HOME = 'h',
@@ -22,6 +23,7 @@ export enum ChatSettingTabOptionEnum {
   LOG_DETAILS = 'log_details'
 }
 
-// export const DEFAULT_LOGO_BANNER_URL = '/imgs/chat/fastgpt_banner.png';
-export const DEFAULT_LOGO_BANNER_URL = '/imgs/chat/hw_alope_banner.png';
-export const DEFAULT_LOGO_BANNER_COLLAPSED_URL = '/imgs/chat/hw_alope_banner_fold.png';
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || '';
+// export const DEFAULT_LOGO_BANNER_URL = `${BASE_URL}/imgs/chat/fastgpt_banner.png`;
+export const DEFAULT_LOGO_BANNER_URL = `${BASE_URL}/imgs/chat/hw_alope_banner.png`;
+export const DEFAULT_LOGO_BANNER_COLLAPSED_URL = `${BASE_URL}/imgs/chat/hw_alope_banner_fold.png`;

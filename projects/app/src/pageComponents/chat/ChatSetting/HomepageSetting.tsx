@@ -21,8 +21,8 @@ import { useMount } from 'ahooks';
 import { useContextSelector } from 'use-context-selector';
 import { ChatSettingContext } from '@/web/core/chat/context/chatSettingContext';
 import {
-  DEFAULT_LOGO_BANNER_COLLAPSED_URL,
-  DEFAULT_LOGO_BANNER_URL
+  getLogoBannerCollapsedUrl,
+  getLogoBannerUrl
 } from '@/pageComponents/chat/constants';
 import { useSystem } from '@fastgpt/web/hooks/useSystem';
 
@@ -370,7 +370,7 @@ const HomepageSetting = ({ Header, onDiagramShow }: Props) => {
                       height="100px"
                       aspectRatio={2.84 / 1}
                       tips={t('chat:setting.copyright.tips')}
-                      imageSrc={wideLogoUrl || DEFAULT_LOGO_BANNER_URL}
+                      imageSrc={wideLogoUrl || getLogoBannerUrl(feConfigs?.brand)}
                       onFileSelect={(url) => setValue('wideLogoUrl', url)}
                     />
 
@@ -382,7 +382,7 @@ const HomepageSetting = ({ Header, onDiagramShow }: Props) => {
                       height="100px"
                       aspectRatio={1 / 1}
                       tips={t('chat:setting.copyright.tips.square')}
-                      imageSrc={squareLogoUrl || DEFAULT_LOGO_BANNER_COLLAPSED_URL}
+                      imageSrc={squareLogoUrl || getLogoBannerCollapsedUrl(feConfigs?.brand)}
                       onFileSelect={(url) => setValue('squareLogoUrl', url)}
                     />
                   </Grid>

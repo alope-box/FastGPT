@@ -27,8 +27,9 @@ import { useCopyData } from '@fastgpt/web/hooks/useCopyData';
 import { ChatSettingContext } from '@/web/core/chat/context/chatSettingContext';
 import {
   ChatSidebarPaneEnum,
-  DEFAULT_LOGO_BANNER_COLLAPSED_URL
+  getLogoBannerCollapsedUrl
 } from '@/pageComponents/chat/constants';
+import { useSystemStore } from '@/web/common/system/useSystemStore';
 import { useChatStore } from '@/web/core/chat/context/useChatStore';
 import { usePathname } from 'next/navigation';
 import type { ChatSettingSchema } from '@fastgpt/global/core/chat/setting/type';
@@ -50,6 +51,7 @@ const ChatHeader = ({
 }) => {
   const { t } = useTranslation();
   const { isPc } = useSystem();
+  const { feConfigs } = useSystemStore();
   const pathname = usePathname();
 
   const chatData = useContextSelector(ChatItemContext, (v) => v.chatBoxData);
@@ -84,12 +86,12 @@ const ChatHeader = ({
           appId={chatData.appId}
           name={
             pane === ChatSidebarPaneEnum.HOME && !isShare
-              ? chatSettings?.homeTabTitle || 'Alope'
+              ? chatSettings?.homeTabTitle || feConfigs?.systemTitle || 'Alope'
               : chatData.app.name
           }
           avatar={
             pane === ChatSidebarPaneEnum.HOME && !isShare
-              ? chatSettings?.squareLogoUrl || DEFAULT_LOGO_BANNER_COLLAPSED_URL
+              ? chatSettings?.squareLogoUrl || getLogoBannerCollapsedUrl(feConfigs?.brand)
               : chatData.app.avatar
           }
           showHistory={showHistory}

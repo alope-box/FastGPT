@@ -135,8 +135,8 @@ export async function initSystemConfig() {
   // get config from database
   const config: FastGPTConfigFileType = {
     feConfigs: {
-      ...fileRes?.feConfigs,
       ...defaultFeConfigs,
+      ...fileRes?.feConfigs,
       ...(fastgptConfig.feConfigs || {}),
       isPlus: !!licenseData,
       hideChatCopyrightSetting: process.env.HIDE_CHAT_COPYRIGHT_SETTING === 'true',

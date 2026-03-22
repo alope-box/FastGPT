@@ -14,7 +14,8 @@ import { ChatItemContext } from '@/web/core/chat/context/chatItemContext';
 import { useChatStore } from '@/web/core/chat/context/useChatStore';
 import PopoverConfirm from '@fastgpt/web/components/common/MyPopover/PopoverConfirm';
 import { ChatSettingContext } from '@/web/core/chat/context/chatSettingContext';
-import { ChatSidebarPaneEnum, DEFAULT_LOGO_BANNER_URL } from '@/pageComponents/chat/constants';
+import { ChatSidebarPaneEnum, getLogoBannerUrl } from '@/pageComponents/chat/constants';
+import { useSystemStore } from '@/web/common/system/useSystemStore';
 import MyDivider from '@fastgpt/web/components/common/MyDivider';
 import { useMemoizedFn } from 'ahooks';
 import { useUserStore } from '@/web/support/user/useUserStore';
@@ -47,6 +48,7 @@ const ChatHistorySlider = ({
   const pathname = usePathname();
   const { t } = useTranslation();
   const { isPc } = useSystem();
+  const { feConfigs } = useSystemStore();
 
   const { userInfo } = useUserStore();
 
@@ -131,7 +133,7 @@ const ChatHistorySlider = ({
         <>
           <Flex align={'center'} justify={'flex-start'} p={2}>
             <Image
-              src={chatSettings?.wideLogoUrl || DEFAULT_LOGO_BANNER_URL}
+              src={chatSettings?.wideLogoUrl || getLogoBannerUrl(feConfigs?.brand)}
               alt="banner"
               w="70%"
             />

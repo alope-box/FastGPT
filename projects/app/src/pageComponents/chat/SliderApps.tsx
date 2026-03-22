@@ -12,8 +12,8 @@ import MyBox from '@fastgpt/web/components/common/MyBox';
 import MyIcon from '@fastgpt/web/components/common/Icon';
 import {
   ChatSidebarPaneEnum,
-  DEFAULT_LOGO_BANNER_COLLAPSED_URL,
-  DEFAULT_LOGO_BANNER_URL
+  getLogoBannerCollapsedUrl,
+  getLogoBannerUrl
 } from '@/pageComponents/chat/constants';
 import { useSystemStore } from '@/web/common/system/useSystemStore';
 import { useContextSelector } from 'use-context-selector';
@@ -148,6 +148,7 @@ const AnimatedText: React.FC<AnimatedTextProps> = ({ show, children, className, 
 );
 
 const LogoSection = () => {
+  const { feConfigs } = useSystemStore();
   const isCollapsed = useContextSelector(ChatSettingContext, (v) => v.collapse === 1);
   const isHomeActive = useContextSelector(
     ChatSettingContext,
@@ -170,7 +171,7 @@ const LogoSection = () => {
           h="auto"
           loading="eager"
           alt="Alope slogan"
-          src={DEFAULT_LOGO_BANNER_URL}
+          src={getLogoBannerUrl(feConfigs?.brand)}
         />
       </AnimatedSection>
 
@@ -179,7 +180,7 @@ const LogoSection = () => {
           <Image
             w="33px"
             h="33px"
-            src={DEFAULT_LOGO_BANNER_COLLAPSED_URL}
+            src={getLogoBannerCollapsedUrl(feConfigs?.brand)}
             alt="Alope logo"
             loading="eager"
           />

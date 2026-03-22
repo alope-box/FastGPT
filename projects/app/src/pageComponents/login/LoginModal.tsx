@@ -4,6 +4,7 @@ import { keyframes } from '@emotion/react';
 import { LoginContainer } from '@/pageComponents/login';
 import I18nLngSelector from '@/components/Select/I18nLngSelector';
 import { useSystem } from '@fastgpt/web/hooks/useSystem';
+import { useSystemStore } from '@/web/common/system/useSystemStore';
 import { getWebReqUrl } from '@fastgpt/web/common/system/utils';
 
 // Animation keyframes
@@ -25,8 +26,10 @@ const particleFloat = keyframes`
 `;
 
 // Alope Logo Component
-const AlopeLogo = () => (
-  <Box position="relative" mb={8} textAlign="center">
+const AlopeLogo = () => {
+  const { feConfigs } = useSystemStore();
+  return (
+    <Box position="relative" mb={8} textAlign="center">
     {/* Animated background particles */}
     <Box position="absolute" top="-20px" left="50%" transform="translateX(-50%)">
       {[...Array(6)].map((_, i) => (
@@ -143,20 +146,15 @@ const AlopeLogo = () => (
         textAlign="center"
         letterSpacing="wide"
       >
-        ALOPE
+        {feConfigs?.systemTitle?.toUpperCase() || 'ALOPE'}
       </Text>
-      <Text
-        fontSize="sm"
-        color="gray.500"
-        textAlign="center"
-        mt={1}
-        fontWeight="medium"
-      >
-        AI-Powered Intelligence
+      <Text fontSize="sm" color="gray.500" textAlign="center" mt={1} fontWeight="medium">
+        {feConfigs?.systemTitle ? `${feConfigs.systemTitle} AI-Powered Intelligence` : 'AI-Powered Intelligence'}
       </Text>
     </Box>
   </Box>
-);
+  );
+};
 
 type LoginModalProps = {
   onSuccess?: () => void;
@@ -164,6 +162,7 @@ type LoginModalProps = {
 
 const LoginModal = ({ onSuccess }: LoginModalProps) => {
   const { isPc } = useSystem();
+  const { feConfigs } = useSystemStore();
 
   return (
     <Flex

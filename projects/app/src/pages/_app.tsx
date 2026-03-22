@@ -13,6 +13,7 @@ import NextHead from '@/components/common/NextHead';
 import { type ReactElement, useEffect } from 'react';
 import { type NextPage } from 'next';
 import { getWebReqUrl } from '@fastgpt/web/common/system/utils';
+import { LOGO_ICON } from '@fastgpt/global/common/system/constants';
 import SystemStoreContextProvider from '@fastgpt/web/context/useSystem';
 import { useRouter } from 'next/router';
 
@@ -54,7 +55,7 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
         <NextHead
           title={title}
           desc={process.env.SYSTEM_DESCRIPTION || t('common:system_intro', { title })}
-          icon={getWebReqUrl(feConfigs?.favicon || process.env.SYSTEM_FAVICON)}
+          icon={getWebReqUrl(process.env.SYSTEM_FAVICON || LOGO_ICON)}
         />
       )}
 

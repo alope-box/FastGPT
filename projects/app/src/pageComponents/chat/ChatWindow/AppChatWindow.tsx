@@ -1,4 +1,5 @@
 import ChatHeader from '@/pageComponents/chat/ChatHeader';
+import NextHead from '@/components/common/NextHead';
 import ChatBox from '@/components/core/chat/ChatContainer/ChatBox';
 import { Flex, Box, Drawer, DrawerOverlay, DrawerContent } from '@chakra-ui/react';
 import ChatHistorySlider from '@/pageComponents/chat/ChatHistorySlider';
@@ -21,7 +22,7 @@ import { useRequest2 } from '@fastgpt/web/hooks/useRequest';
 import { getInitChatInfo } from '@/web/core/chat/api';
 import { useUserStore } from '@/web/support/user/useUserStore';
 import { useRouter } from 'next/router';
-import NextHead from '@/components/common/NextHead';
+import { getWebReqUrl } from '@fastgpt/web/common/system/utils';
 import { ChatSettingContext } from '@/web/core/chat/context/chatSettingContext';
 import { ChatSidebarPaneEnum } from '../constants';
 

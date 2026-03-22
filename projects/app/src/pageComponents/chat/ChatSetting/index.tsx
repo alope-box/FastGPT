@@ -11,6 +11,8 @@ import ChatHistorySlider from '@/pageComponents/chat/ChatHistorySlider';
 import { useTranslation } from 'react-i18next';
 import { ChatContext } from '@/web/core/chat/context/chatContext';
 import NextHead from '@/components/common/NextHead';
+import { LOGO_ICON } from '@fastgpt/global/common/system/constants';
+import { getWebReqUrl } from '@fastgpt/web/common/system/utils';
 import { ChatSettingContext } from '@/web/core/chat/context/chatSettingContext';
 
 const HomepageSetting = dynamic(() => import('@/pageComponents/chat/ChatSetting/HomepageSetting'));
@@ -45,7 +47,7 @@ const ChatSetting = () => {
 
   return (
     <>
-      <NextHead title={chatSettings?.homeTabTitle || 'Alope'} icon="/icon/hw-logo.png" />
+      <NextHead title={chatSettings?.homeTabTitle || 'Alope'} icon={getWebReqUrl(LOGO_ICON)} />
 
       {!isPc && (
         <Flex h="46px" w="100vw" position="absolute" borderBottom="sm" color="myGray.900">

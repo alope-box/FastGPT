@@ -2,6 +2,7 @@ import { LoginPageTypeEnum } from '@/web/support/user/login/constants';
 import { useSystemStore } from '@/web/common/system/useSystemStore';
 import { AbsoluteCenter, Box, Flex, Grid, IconButton, GridItem, Button } from '@chakra-ui/react';
 import { LOGO_ICON } from '@fastgpt/global/common/system/constants';
+import { getWebReqUrl } from '@fastgpt/web/common/system/utils';
 import { OAuthEnum } from '@fastgpt/global/support/user/constant';
 import { useRouter } from 'next/router';
 import { type Dispatch, useCallback, useEffect, useMemo, useRef } from 'react';
@@ -159,29 +160,11 @@ const FormLayout = ({ children, setPageType, pageType }: Props) => {
 
   return (
     <Flex flexDirection={'column'} h={'100%'}>
-      <Flex alignItems={'center'} justifyContent={['space-between', 'center']}>
-        {/* Logo container commented out as requested */}
-        {/*
-        <Flex alignItems={'center'} pr="4">
-          <Flex
-            w={['42px', '56px']}
-            h={['42px', '56px']}
-            bg={'myGray.25'}
-            borderRadius={['semilg', 'lg']}
-            borderWidth={['1px', '1.5px']}
-            borderColor={'myGray.200'}
-            alignItems={'center'}
-            justifyContent={'center'}
-          >
-            <MyImage src={LOGO_ICON} w={['22.5px', '36px']} alt={'icon'} />
-          </Flex>
-          <Box ml={[3, 5]} fontSize={['lg', 'xl']} fontWeight={'bold'} color={'myGray.900'}>
-            {feConfigs?.systemTitle}
-          </Box>
+      {!isPc && (
+        <Flex justifyContent={'flex-end'} mb={2}>
+          <I18nLngSelector />
         </Flex>
-        */}
-        {!isPc && <I18nLngSelector />}
-      </Flex>
+      )}
       {children}
       {show_oauth && (
         <Box mt={['80px', 9]}>

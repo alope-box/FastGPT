@@ -1,4 +1,5 @@
 import { AppTypeEnum } from '@fastgpt/global/core/app/constants';
+import { LOGO_ICON } from '@fastgpt/global/common/system/constants';
 import { type InitChatResponse } from './api';
 
 export const defaultChatData: InitChatResponse = {
@@ -6,7 +7,7 @@ export const defaultChatData: InitChatResponse = {
   appId: '',
   app: {
     name: 'Loading',
-    avatar: '/icon/logo.svg',
+    avatar: LOGO_ICON,
     intro: '',
     canUse: false,
     type: AppTypeEnum.simple,

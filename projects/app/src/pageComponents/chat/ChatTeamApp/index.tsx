@@ -17,6 +17,8 @@ import { Drawer, DrawerContent, DrawerOverlay } from '@chakra-ui/react';
 import ChatHistorySlider from '@/pageComponents/chat/ChatHistorySlider';
 import { ChatContext } from '@/web/core/chat/context/chatContext';
 import NextHead from '@/components/common/NextHead';
+import { LOGO_ICON } from '@fastgpt/global/common/system/constants';
+import { getWebReqUrl } from '@fastgpt/web/common/system/utils';
 import { ChatSettingContext } from '@/web/core/chat/context/chatSettingContext';
 
 const MyApps = () => {
@@ -57,7 +59,7 @@ const MyApps = () => {
 
   return (
     <Flex flexDirection={'column'} h={'100%'} pt={['46px', 0]}>
-      <NextHead title={chatSettings?.homeTabTitle || 'Alope'} icon="/icon/hw-logo.png" />
+      <NextHead title={chatSettings?.homeTabTitle || 'Alope'} icon={getWebReqUrl(LOGO_ICON)} />
 
       {!isPc && (
         <Flex h="46px" w="100vw" top="0" position="absolute" borderBottom="sm" color="myGray.900">

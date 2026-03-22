@@ -1,5 +1,8 @@
 import React, { type Dispatch } from 'react';
 import { FormControl, Flex, Input, Button, Box } from '@chakra-ui/react';
+import { LOGO_ICON } from '@fastgpt/global/common/system/constants';
+import { getWebReqUrl } from '@fastgpt/web/common/system/utils';
+import MyImage from '@fastgpt/web/components/common/Image/MyImage';
 import { useForm } from 'react-hook-form';
 import { LoginPageTypeEnum } from '@/web/support/user/login/constants';
 import { postLogin, getPreLogin } from '@/web/support/user/api';
@@ -125,6 +128,22 @@ const LoginForm = ({ setPageType, loginSuccess }: Props) => {
         >
           {t('login:Login')}
         </Button>
+
+        {/* Logo icon 居中显示在登录按钮下方 */}
+        <Flex flexDirection={'column'} alignItems={'center'} mb={3}>
+          <Flex
+            w={['42px', '56px']}
+            h={['42px', '56px']}
+            bg={'myGray.25'}
+            borderRadius={['semilg', 'lg']}
+            borderWidth={['1px', '1.5px']}
+            borderColor={'myGray.200'}
+            alignItems={'center'}
+            justifyContent={'center'}
+          >
+            <MyImage src={getWebReqUrl(LOGO_ICON)} w={['22.5px', '36px']} alt={'icon'} />
+          </Flex>
+        </Flex>
 
         <Flex
           align={'center'}

@@ -40,6 +40,7 @@ import { getDefaultAppForm } from '@fastgpt/global/core/app/utils';
 import { getPreviewPluginNode } from '@/web/core/app/api/plugin';
 import type { FlowNodeTemplateType } from '@fastgpt/global/core/workflow/type/node';
 import { getWebLLMModel } from '@/web/common/system/utils';
+import { getWebReqUrl } from '@fastgpt/web/common/system/utils';
 import { ChatSettingContext } from '@/web/core/chat/context/chatSettingContext';
 import type {
   AppFileSelectConfigType,
@@ -48,7 +49,7 @@ import type {
 } from '@fastgpt/global/core/app/type';
 import ChatHeader from '@/pageComponents/chat/ChatHeader';
 import { ChatRecordContext } from '@/web/core/chat/context/chatRecordContext';
-import { HUGGING_FACE_ICON } from '@fastgpt/global/common/system/constants';
+import { HUGGING_FACE_ICON, LOGO_ICON } from '@fastgpt/global/common/system/constants';
 import { getModelFromList } from '@fastgpt/global/core/ai/model';
 import MyPopover from '@fastgpt/web/components/common/MyPopover';
 import { ChatSidebarPaneEnum } from '../constants';
@@ -370,7 +371,7 @@ const HomeChatWindow = ({ myApps }: Props) => {
   return (
     <Flex h={'100%'} flexDirection={['column', 'row']}>
       {/* set window title and icon */}
-      <NextHead title={chatSettings?.homeTabTitle || 'Alope'} icon="/icon/hw-logo.png" />
+      <NextHead title={chatSettings?.homeTabTitle || 'Alope'} icon={getWebReqUrl(LOGO_ICON)} />
 
       {/* show history slider */}
       {isPc || !appId ? (

@@ -135,40 +135,59 @@ const HomeChatWindow = ({ myApps }: Props) => {
   // 初始化聊天数据
   const { loading } = useRequest2(
     async () => {
-      if (!appId || forbidLoadChat.current || !feConfigs?.isPlus) return;
-
+      // If appId exists, we fetch init info. If not, we still need to set default chatConfig.
       const modelData = getWebLLMModel(selectedModel);
-      const res = await getInitChatInfo({ appId, chatId });
-      res.userAvatar = userInfo?.avatar;
-      if (!res.app.chatConfig) {
-        res.app.chatConfig = {
-          fileSelectConfig: {
+
+      if (appId && forbidLoadChat.current !== true) {
+        const res = await getInitChatInfo({ appId, chatId });
+        res.userAvatar = userInfo?.avatar;
+        if (!res.app.chatConfig) {
+          res.app.chatConfig = {
+            fileSelectConfig: {
+              ...defaultFileSelectConfig,
+              canSelectImg: !!modelData.vision
+            },
+            whisperConfig: defaultWhisperConfig
+          };
+        } else {
+          res.app.chatConfig.fileSelectConfig = {
             ...defaultFileSelectConfig,
+            ...res.app.chatConfig.fileSelectConfig,
             canSelectImg: !!modelData.vision
-          },
-          whisperConfig: defaultWhisperConfig
-        };
+          };
+          res.app.chatConfig.whisperConfig = {
+            ...defaultWhisperConfig,
+            ...res.app.chatConfig.whisperConfig,
+            open: true
+          };
+        }
+
+        setChatBoxData(res);
+
+        resetVariables({
+          variables: res.variables,
+          variableList: res.app?.chatConfig?.variables
+        });
       } else {
-        res.app.chatConfig.fileSelectConfig = {
-          ...defaultFileSelectConfig,
-          canSelectImg: !!modelData.vision
-        };
-        res.app.chatConfig.whisperConfig = {
-          ...defaultWhisperConfig,
-          open: true
-        };
+        // Default init for Home page without appId
+        setChatBoxData((state) => ({
+          ...state,
+          app: {
+            ...state.app,
+            chatConfig: {
+              fileSelectConfig: {
+                ...defaultFileSelectConfig,
+                canSelectImg: !!modelData.vision
+              },
+              whisperConfig: defaultWhisperConfig
+            }
+          }
+        }));
       }
-
-      setChatBoxData(res);
-
-      resetVariables({
-        variables: res.variables,
-        variableList: res.app?.chatConfig?.variables
-      });
     },
     {
       manual: false,
-      refreshDeps: [appId, chatId],
+      refreshDeps: [appId, chatId, selectedModel],
       errorToast: '',
       onFinally() {
         forbidLoadChat.current = false;
@@ -183,11 +202,11 @@ const HomeChatWindow = ({ myApps }: Props) => {
     }
   );
 
-  useMount(() => {
-    if (!feConfigs?.isPlus) {
-      handlePaneChange(ChatSidebarPaneEnum.TEAM_APPS);
-    }
-  });
+  // useMount(() => {
+  //   if (!feConfigs?.isPlus) {
+  //     handlePaneChange(ChatSidebarPaneEnum.TEAM_APPS);
+  //   }
+  // });
 
   // 使用类似AppChatWindow的对话逻辑
   const onStartChat = useMemoizedFn(
@@ -223,7 +242,7 @@ const HomeChatWindow = ({ myApps }: Props) => {
       formData.chatConfig = chatBoxData.app.chatConfig || {};
 
       const { responseText } = await streamFetch({
-        url: '/api/proApi/core/chat/chatHome',
+        url: '/api/core/chat/chatHome',
         data: {
           messages: histories,
           variables,

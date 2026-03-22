@@ -264,30 +264,28 @@ const NavigationSection = () => {
         <ActionButton isCollapsed icon="core/chat/sidebar/expand" onClick={onTriggerCollapse} />
       </AnimatedSection>
 
-      {isProVersion && (
-        <AnimatePresence mode="wait">
-          {isCollapsed ? (
-            <AnimatedSection show={true}>
-              <ActionButton
-                icon="core/chat/sidebar/home"
-                isCollapsed={true}
-                isActive={isHomeActive}
-                onClick={() => onHomeClick(ChatSidebarPaneEnum.HOME)}
-              />
-            </AnimatedSection>
-          ) : (
-            <AnimatedSection show={true}>
-              <ActionButton
-                icon="core/chat/sidebar/home"
-                text={t('chat:sidebar.home')}
-                isCollapsed={false}
-                isActive={isHomeActive}
-                onClick={() => onHomeClick(ChatSidebarPaneEnum.HOME)}
-              />
-            </AnimatedSection>
-          )}
-        </AnimatePresence>
-      )}
+      <AnimatePresence mode="wait">
+        {isCollapsed ? (
+          <AnimatedSection show={true}>
+            <ActionButton
+              icon="core/chat/sidebar/home"
+              isCollapsed={true}
+              isActive={isHomeActive}
+              onClick={() => onHomeClick(ChatSidebarPaneEnum.HOME)}
+            />
+          </AnimatedSection>
+        ) : (
+          <AnimatedSection show={true}>
+            <ActionButton
+              icon="core/chat/sidebar/home"
+              text={t('chat:sidebar.home')}
+              isCollapsed={false}
+              isActive={isHomeActive}
+              onClick={() => onHomeClick(ChatSidebarPaneEnum.HOME)}
+            />
+          </AnimatedSection>
+        )}
+      </AnimatePresence>
 
       <AnimatePresence mode="wait">
         {isCollapsed ? (

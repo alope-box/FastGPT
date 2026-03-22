@@ -138,7 +138,7 @@ export async function initSystemConfig() {
       ...defaultFeConfigs,
       ...fileRes?.feConfigs,
       ...(fastgptConfig.feConfigs || {}),
-      isPlus: !!licenseData,
+      isPlus: process.env.IS_PLUS === 'true' || !!licenseData,
       hideChatCopyrightSetting: process.env.HIDE_CHAT_COPYRIGHT_SETTING === 'true',
       show_aiproxy: !!process.env.AIPROXY_API_ENDPOINT,
       show_coupon: process.env.SHOW_COUPON === 'true',

@@ -13,7 +13,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       throw new Error('url is empty');
     }
     if (!FastGPTProUrl) {
-      throw new Error(`未配置商业版链接: ${path}`);
+      if (requestPath.includes('core/chat/setting/detail')) {
+        return jsonRes(res, {
+          data: {
+            homeTabTitle: 'Alope',
+            slogan: 'Welcome to Alope',
+            dialogTips: 'How can I help you today?',
+            selectedTools: []
+          }
+        });
+      }
+      throw new Error(`未配置商业版chat链接: ${path}`);
     }
 
     const parsedUrl = new URL(FastGPTProUrl);

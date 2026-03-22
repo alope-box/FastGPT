@@ -9,6 +9,7 @@ import { authApp } from '@fastgpt/service/support/permission/app/auth';
 import { MongoChatItem } from '@fastgpt/service/core/chat/chatItemSchema';
 import { DatasetErrEnum } from '@fastgpt/global/common/error/code/dataset';
 import { getFlatAppResponses } from '@/global/core/chat/utils';
+import { parseHeaderCert } from '@fastgpt/service/support/permission/controller';
 
 /* 
   检查chat的权限：
@@ -57,7 +58,19 @@ export async function authChatCrud({
   showRawSource: boolean;
   authType?: `${AuthUserTypeEnum}`;
 }> {
-  if (!appId) return Promise.reject(ChatErrEnum.unAuthChat);
+  if (!appId) {
+    if (!chatId) {
+      const result = await parseHeaderCert(props);
+      return {
+        teamId: result.teamId,
+        tmbId: result.tmbId,
+        uid: result.tmbId,
+        ...defaultResponseShow,
+        authType: result.authType
+      };
+    }
+    return Promise.reject(ChatErrEnum.unAuthChat);
+  }
 
   if (spaceTeamId && teamToken) {
     const { uid, tmbId } = await authTeamSpaceToken({ teamId: spaceTeamId, teamToken });

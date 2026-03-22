@@ -46,7 +46,7 @@ export const ChatSettingContextProvider = ({ children }: { children: React.React
   const { feConfigs } = useSystemStore();
   const { appId, setLastPane, setLastChatAppId, lastPane } = useChatStore();
 
-  const { pane = lastPane || ChatSidebarPaneEnum.HOME } = (
+  const { pane = ChatSidebarPaneEnum.HOME } = (
     pathname === '/chat/share' ? { pane: ChatSidebarPaneEnum.RECENTLY_USED_APPS } : router.query
   ) as { pane: ChatSidebarPaneEnum };
 

@@ -11,7 +11,14 @@ export const defaultChatData: InitChatResponse = {
     intro: '',
     canUse: false,
     type: AppTypeEnum.simple,
-    pluginInputs: []
+    pluginInputs: [],
+    chatConfig: {
+      fileSelectConfig: {
+        canSelectFile: true,
+        canSelectImg: false,
+        maxFiles: 10
+      }
+    }
   },
   title: '',
   variables: {}

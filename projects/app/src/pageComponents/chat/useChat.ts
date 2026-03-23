@@ -35,9 +35,7 @@ export const useChat = (appId: string) => {
 
   // sync appId to store as soon as route/appId changes
   useEffect(() => {
-    if (appId) {
-      setAppId(appId);
-    }
+    setAppId(appId);
   }, [appId, setAppId, userInfo]);
 
   return {

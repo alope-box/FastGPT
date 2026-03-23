@@ -172,6 +172,7 @@ const HomeChatWindow = ({ myApps }: Props) => {
         // Default init for Home page without appId
         setChatBoxData((state) => ({
           ...state,
+          appId: '',
           app: {
             ...state.app,
             chatConfig: {

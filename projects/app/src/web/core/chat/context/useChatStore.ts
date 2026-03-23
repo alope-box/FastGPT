@@ -94,11 +94,11 @@ export const useChatStore = create<State>()(
         },
         appId: '',
         setAppId(e) {
-          if (!e) return;
-
           set((state) => {
             state.appId = e;
-            state.lastChatAppId = e;
+            if (e) {
+              state.lastChatAppId = e;
+            }
           });
         },
         lastChatId: '',

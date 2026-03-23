@@ -25,18 +25,20 @@ async function handler(req: ApiRequestProps<{}, ClearHistoriesProps>, res: NextA
     ...req.query
   });
 
+  const authenticatedAppId = appId || chatTeamId;
+
   const match = await (async () => {
     if (shareId && outLinkUid && authType === 'outLink') {
       return {
         teamId: chatTeamId,
-        appId,
+        appId: authenticatedAppId,
         outLinkUid: uid
       };
     }
     if (teamId && teamToken && authType === 'teamDomain') {
       return {
         teamId: chatTeamId,
-        appId,
+        appId: authenticatedAppId,
         outLinkUid: uid
       };
     }
@@ -44,14 +46,14 @@ async function handler(req: ApiRequestProps<{}, ClearHistoriesProps>, res: NextA
       return {
         teamId: chatTeamId,
         tmbId,
-        appId,
+        appId: authenticatedAppId,
         source: ChatSourceEnum.online
       };
     }
     if (authType === 'apikey') {
       return {
         teamId: chatTeamId,
-        appId,
+        appId: authenticatedAppId,
         source: ChatSourceEnum.api
       };
     }
@@ -68,14 +70,14 @@ async function handler(req: ApiRequestProps<{}, ClearHistoriesProps>, res: NextA
   return mongoSessionRun(async (session) => {
     await MongoChatItem.deleteMany(
       {
-        appId,
+        appId: authenticatedAppId,
         chatId: { $in: idList }
       },
       { session }
     );
     await MongoChat.deleteMany(
       {
-        appId,
+        appId: authenticatedAppId,
         chatId: { $in: idList }
       },
       { session }

@@ -32,22 +32,31 @@ async function handler(
 
   const { offset, pageSize } = parsePaginationRequest(req);
 
-  if (!appId || !chatId) {
+  if (!chatId) {
     return {
       list: [],
       total: 0
     };
   }
 
-  const [app, { responseDetail, showNodeStatus, authType }] = await Promise.all([
-    MongoApp.findById(appId, 'type').lean(),
-    authChatCrud({
-      req,
-      authToken: true,
-      authApiKey: true,
-      ...req.body
-    })
-  ]);
+  const {
+    teamId: authenticatedTeamId,
+    responseDetail,
+    showNodeStatus,
+    authType
+  } = await authChatCrud({
+    req,
+    authToken: true,
+    authApiKey: true,
+    ...req.body
+  });
+
+  const authenticatedAppId = appId || authenticatedTeamId;
+
+  const app =
+    authenticatedAppId === authenticatedTeamId
+      ? { type: AppTypeEnum.workflow } // Home chat virtual app type
+      : await MongoApp.findById(authenticatedAppId, 'type').lean();
 
   if (!app) {
     return Promise.reject(AppErrEnum.unExist);
@@ -67,7 +76,7 @@ async function handler(
   };
 
   const { total, histories } = await getChatItems({
-    appId,
+    appId: authenticatedAppId,
     chatId,
     field: fieldMap[type],
     offset,

@@ -22,26 +22,25 @@ async function handler(
   res: ApiResponseType<any>
 ): Promise<getResDataResponse> {
   const { appId, chatId, dataId, shareId } = req.query;
-  if (!appId || !chatId || !dataId) {
+  if (!chatId || !dataId) {
     return [];
   }
 
-  const [{ responseDetail }, chatData] = await Promise.all([
-    authChatCrud({
-      req,
-      authToken: true,
-      authApiKey: true,
-      ...req.query
-    }),
-    MongoChatItem.findOne(
-      {
-        appId,
-        chatId,
-        dataId
-      },
-      'obj responseData'
-    ).lean()
-  ]);
+  const { teamId: authenticatedTeamId, responseDetail } = await authChatCrud({
+    req,
+    authToken: true,
+    authApiKey: true,
+    ...req.query
+  });
+
+  const chatData = await MongoChatItem.findOne(
+    {
+      appId: appId || authenticatedTeamId,
+      chatId,
+      dataId
+    },
+    'obj responseData'
+  ).lean();
 
   if (chatData?.obj !== ChatRoleEnum.AI) {
     return [];

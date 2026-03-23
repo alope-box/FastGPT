@@ -13,25 +13,27 @@ import { deleteChatFiles } from '@fastgpt/service/core/chat/controller';
 async function handler(req: ApiRequestProps<{}, DelHistoryProps>, res: NextApiResponse) {
   const { appId, chatId } = req.query;
 
-  await authChatCrud({
+  const { teamId: authenticatedTeamId } = await authChatCrud({
     req,
     authToken: true,
     authApiKey: true,
     ...req.query
   });
 
+  const authenticatedAppId = appId || authenticatedTeamId;
+
   await deleteChatFiles({ chatIdList: [chatId] });
   await mongoSessionRun(async (session) => {
     await MongoChatItem.deleteMany(
       {
-        appId,
+        appId: authenticatedAppId,
         chatId
       },
       { session }
     );
     await MongoChat.deleteOne(
       {
-        appId,
+        appId: authenticatedAppId,
         chatId
       },
       { session }

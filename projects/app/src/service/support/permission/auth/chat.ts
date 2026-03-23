@@ -59,8 +59,10 @@ export async function authChatCrud({
   authType?: `${AuthUserTypeEnum}`;
 }> {
   if (!appId) {
+    const result = await parseHeaderCert(props);
+    const authenticatedAppId = result.teamId;
+
     if (!chatId) {
-      const result = await parseHeaderCert(props);
       return {
         teamId: result.teamId,
         tmbId: result.tmbId,
@@ -69,7 +71,30 @@ export async function authChatCrud({
         authType: result.authType
       };
     }
-    return Promise.reject(ChatErrEnum.unAuthChat);
+
+    // Auth home chat: appId = teamId
+    const chat = await MongoChat.findOne({ appId: authenticatedAppId, chatId }).lean();
+    if (!chat) {
+      return {
+        teamId: result.teamId,
+        tmbId: result.tmbId,
+        uid: result.tmbId,
+        ...defaultResponseShow,
+        authType: result.authType
+      };
+    }
+
+    if (String(result.teamId) !== String(chat.teamId)) return Promise.reject(ChatErrEnum.unAuthChat);
+    if (String(result.tmbId) !== String(chat.tmbId)) return Promise.reject(ChatErrEnum.unAuthChat);
+
+    return {
+      teamId: result.teamId,
+      tmbId: result.tmbId,
+      uid: result.tmbId,
+      chat,
+      ...defaultResponseShow,
+      authType: result.authType
+    };
   }
 
   if (spaceTeamId && teamToken) {

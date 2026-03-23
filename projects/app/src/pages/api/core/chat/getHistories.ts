@@ -55,14 +55,16 @@ async function handler(
         source: ChatSourceEnum.team
       };
     }
-    if (appId) {
-      const { tmbId } = await authCert({ req, authToken: true, authApiKey: true });
-      return {
-        tmbId,
-        appId,
-        ...(source && { source })
-      };
-    }
+    const { tmbId, teamId: authenticatedTeamId } = await authCert({
+      req,
+      authToken: true,
+      authApiKey: true
+    });
+    return {
+      tmbId,
+      appId: appId || authenticatedTeamId,
+      ...(source && { source })
+    };
   })();
 
   if (!match) {

@@ -21,8 +21,8 @@ import { ChatRecordContext } from '@/web/core/chat/context/chatRecordContext';
 import { useRequest2 } from '@fastgpt/web/hooks/useRequest';
 import { getInitChatInfo } from '@/web/core/chat/api';
 import { useUserStore } from '@/web/support/user/useUserStore';
-import { useRouter } from 'next/router';
 import { getWebReqUrl } from '@fastgpt/web/common/system/utils';
+import { getWebLLMModel } from '@/web/common/system/utils';
 import { ChatSettingContext } from '@/web/core/chat/context/chatSettingContext';
 import { ChatSidebarPaneEnum } from '../constants';
 
@@ -31,7 +31,6 @@ type Props = {
 };
 
 const AppChatWindow = ({ myApps }: Props) => {
-  const router = useRouter();
   const { userInfo } = useUserStore();
   const { chatId, appId, outLinkAuthData } = useChatStore();
 
@@ -61,6 +60,17 @@ const AppChatWindow = ({ myApps }: Props) => {
 
       const res = await getInitChatInfo({ appId, chatId });
       res.userAvatar = userInfo?.avatar;
+
+      // If any model in the app supports vision, enable image upload
+      const hasVisionModel = res.app.chatModels?.some(
+        (modelName) => getWebLLMModel(modelName)?.vision
+      );
+      if (hasVisionModel && res.app.chatConfig?.fileSelectConfig) {
+        res.app.chatConfig.fileSelectConfig = {
+          ...res.app.chatConfig.fileSelectConfig,
+          canSelectImg: true
+        };
+      }
 
       setChatBoxData(res);
 
@@ -121,7 +131,7 @@ const AppChatWindow = ({ myApps }: Props) => {
   return (
     <Flex h={'100%'} flexDirection={['column', 'row']}>
       {/* set window title and icon */}
-      <NextHead title={chatBoxData.app.name} icon={chatBoxData.app.avatar} />
+      <NextHead title={chatBoxData.app.name} icon={getWebReqUrl(chatBoxData.app.avatar)} />
 
       {/* show history slider */}
       {isPc || !appId ? (

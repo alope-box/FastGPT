@@ -495,7 +495,8 @@
             "required": true,
             "label": "拼接文本",
             "placeholder": "可通过 {{字段名}} 来引用变量",
-            "value": "****** \n\n最终翻译结果如下: \n\n```\n{{result}}\n```"
+            "value": ""
+            
           },
           {
             "renderTypeList": ["reference"],

@@ -175,6 +175,7 @@ const HomeChatWindow = ({ myApps }: Props) => {
           appId: '',
           app: {
             ...state.app,
+            avatar: LOGO_ICON,
             chatConfig: {
               fileSelectConfig: {
                 ...defaultFileSelectConfig,
